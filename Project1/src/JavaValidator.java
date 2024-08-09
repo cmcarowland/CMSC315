@@ -13,8 +13,7 @@ public class JavaValidator {
     private int index = 0;
     private int lineNumber = 1;
     private char currentChar = 0;
-    private Stack<Character> delimiterStack = new Stack<>();
-    private int delimiterIndex = -1; 
+    private Stack<Delimiter> delimiterStack = new Stack<>();
     private List<Character> delimiters = Arrays.asList(new Character[]     {'{', '(', '[', '"', '\'', '/'});
     private List<Character> delimiterEnds =  Arrays.asList(new Character[] {'}', ')', ']', '"', '\'', '\n'});
     private boolean insideQuote;
@@ -39,7 +38,8 @@ public class JavaValidator {
             continue;
 
         if(!isStackClear()) {
-            System.out.println("Invalid File " + delimiters.get(delimiterIndex) + " without proper " + delimiterEnds.get(delimiterIndex) + " at " + getLineNumberAndChar());
+            Delimiter d = delimiterStack.peek();
+            System.out.println("Invalid File " + d.character + " is opened on line " + d.lineNumber +" at index " + d.index + " and is never closed.");
             return false;
         } 
 
@@ -67,20 +67,20 @@ public class JavaValidator {
 
     public char getNextChar() {
         try{
-            currentChar = fileCharacters[index++];
+            currentChar = fileCharacters[index];
+            //Process String Literal \n \r \t etc...
             if((insideChar || insideQuote) && currentChar == '\\') {
-                index ++;
-                currentChar = fileCharacters[index++];
+                index += 2;
+                currentChar = fileCharacters[index];
+                return currentChar;
             }
-            if(currentChar == '/') {
-                if(fileCharacters[index] == '/') {
-                    delimiterStack.push(currentChar);
-                    index ++;
-                    currentChar = fileCharacters[index++];
-                    insideComment = true;
-                    delimiterIndex = 5;
-                    return currentChar;
-                }
+            //Process Comment
+            if(!(insideChar || insideQuote) && currentChar == '/' && fileCharacters[index + 1] == '/') {
+                delimiterStack.push(new Delimiter(currentChar, index, 5, lineNumber));
+                index += 2;
+                currentChar = fileCharacters[index++];
+                insideComment = true;
+                return currentChar;
             }
         } catch(Exception e) {
             currentChar = 0;
@@ -90,15 +90,10 @@ public class JavaValidator {
             lineNumber ++;
 
         if(isDelimiter()) {
-            delimiterStack.push(currentChar);
-            delimiterIndex = delimiters.indexOf(currentChar);
+            delimiterStack.push(new Delimiter(currentChar, index, delimiters.indexOf(currentChar), lineNumber));
         } else if(isDelimiterEnd()) {
             if(isProperEnd()) {  //Find way to ignore cases where 
                 delimiterStack.pop();
-                if(!delimiterStack.isEmpty())
-                    delimiterIndex = delimiters.indexOf(delimiterStack.peek());
-                else
-                    delimiterIndex = -1;
             } else {
                 return 0;
             }
@@ -106,6 +101,7 @@ public class JavaValidator {
         
         // System.out.println(currentChar);
         // System.out.println(delimiterStack);
+        index ++;
         return currentChar;
     }
 
@@ -153,8 +149,8 @@ public class JavaValidator {
     }
 
     private boolean isProperEnd() {
-        if(delimiterIndex != -1) {
-            if(currentChar == delimiterEnds.get(delimiterIndex)) {
+        if(!delimiterStack.isEmpty()) {
+            if(currentChar == delimiterEnds.get(delimiterStack.peek().delimeterIndex)) {
                 if(currentChar == '\n' && insideComment)
                     insideComment = false;
                 if(currentChar == '\'')
