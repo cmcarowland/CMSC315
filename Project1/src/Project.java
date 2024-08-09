@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
@@ -7,11 +8,12 @@ public class Project {
     static private JavaValidator jv;
 
     public static void main(String[] args) throws FileNotFoundException {
-        try {
-            scanner = new Scanner(System.in);  // Create a Scanner object
-            System.out.print("Enter file path to verify : ");
+        scanner = new Scanner(System.in);  // Create a Scanner object
+        while(!GetValidFileFromUser())
+            System.out.println("Invalid File, Please try again");
 
-            fileName = scanner.nextLine();  // Read user input
+        try {
+            
             jv  = new JavaValidator(fileName);
             if(jv.validateFile())
                 System.out.println(fileName + " is a valid java file.");
@@ -20,5 +22,27 @@ public class Project {
         } finally {
             scanner.close();
         }
+    }
+
+    public static boolean GetValidFileFromUser() {
+            fileName = GetUserInput();
+            if(DoesFileExist(fileName))
+                return true;
+            
+            return false;
+    }
+
+    public static String GetUserInput() {
+        System.out.print("Enter file path to verify : ");
+        return scanner.nextLine();  // Read user input
+    }
+
+    public static boolean DoesFileExist(String filePath) {
+        File f = new File(filePath);
+        if(f.exists() && !f.isDirectory()) { 
+            return true;
+        }
+        
+        return false;
     }
 }
