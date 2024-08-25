@@ -1,0 +1,10 @@
+{
+    "java.debug.settings.onBuildFailureProceed": true,
+    "java.project.sourcePaths": [
+        "Project1/src"
+    ],
+    "java.project.referencedLibraries": [
+        "/workspaces/CMSC315/lib/hamcrest-core-1.3.jar",
+        "/workspaces/CMSC315/lib/junit-4.13.2.jar"
+    ]
+}

@@ -1,21 +1,6 @@
-- [ ] Project 1
-  - [ ] Class encapsulates the input file
-    - [ ] Constructor accepts file name of a Java source file
-    - [ ] Throw FileNotFoundException if invalid file
-    - [ ] Generate a method that returns the next chracter
-      - [ ] Skip comments
-      - [ ] Skip string literals
-    - [ ] Generate a method that returns a string containing:
-      - [ ] The current line number
-      - [ ] Character number of the current character
-  - [ ] Class that contains main
-    - [ ] Get file name from user
-    - [ ] Instantiate class above and call the function repeatedly until EOF is found.
-    - [ ] Use a stack to look for left delimiter
-    - [ ] Pop off when right delimiter is found
-- [ ] Create a .zip with
-  - [ ] Java code
-  - [ ] Word Document
-    - [ ] UML class diagram
-    - [ ] A test plan that includes test cases
-    - [ ] A paragraph describing what you learned from the project
+# CSMC 315
+
+- [x] [Project 1](Project1/Readme.md)
+- [ ] [Project 2](Readme.md)
+- [ ] [Project 3](Readme.md)
+- [ ] [Project 4](Readme.md)

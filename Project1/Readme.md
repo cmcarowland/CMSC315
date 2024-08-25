@@ -1,0 +1,21 @@
+- [x] Project 1
+  - [x] Class encapsulates the input file
+    - [x] Constructor accepts file name of a Java source file
+    - [x] Throw FileNotFoundException if invalid file
+    - [x] Generate a method that returns the next chracter
+      - [x] Skip comments
+      - [x] Skip string literals ' " \t \r \n \f \b \\
+    - [x] Generate a method that returns a string containing:
+      - [x] The current line number
+      - [x] Character number of the current character
+  - [x] Class that contains main
+    - [x] Get file name from user
+    - [x] Instantiate class above and call the function repeatedly until EOF is found.
+    - [x] Use a stack to look for left delimiter
+    - [x] Pop off when right delimiter is found
+- [x] Create a .zip with
+  - [x] Java code
+  - [x] Word Document
+    - [x] UML class diagram
+    - [x] A test plan that includes test cases
+    - [x] A paragraph describing what you learned from the project
