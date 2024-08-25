@@ -1,3 +1,14 @@
+/*
+ * Raymond Rowland
+ * Project 1
+ * 8/25/2024
+ * 
+ * The Project class serves as the entry point for a Java application 
+ * that validates Java source code files. It prompts the user for a file path, 
+ * checks if the file exists, and uses the JavaValidator class to validate the 
+ * file's syntactical correctness regarding delimiters.
+ */
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -13,7 +24,6 @@ public class Project {
             System.out.println("Invalid File, Please try again");
 
         try {
-            
             jv  = new JavaValidator(fileName);
             if(jv.validateFile())
                 System.out.println(fileName + " is a valid java file.");
