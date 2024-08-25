@@ -1,12 +1,23 @@
+/*
+ * Raymond Rowland
+ * Project 1
+ * 8/25/2024
+ * 
+ * The JavaValidator class is designed to validate Java source code files 
+ * for proper usage of delimiters such as curly braces, parentheses, brackets, quotes, and comments. 
+ * It reads a file specified by its path, analyzes its characters to track and ensure all delimiters are correctly opened and closed, and reports any mismatches. 
+ * The class uses a stack to keep track of open delimiters and checks for various conditions to ensure syntactical correctness in the source code.
+ */
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Stack;
-import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
-public class JavaValidator {
+public class JavaValidator implements Iterator<Character> {
     public String filePath;
     public char[] fileCharacters;
     
@@ -14,11 +25,13 @@ public class JavaValidator {
     private int lineNumber = 1;
     private char currentChar = 0;
     private Stack<Delimiter> delimiterStack = new Stack<>();
-    private List<Character> delimiters = Arrays.asList(new Character[]     {'{', '(', '[', '"', '\'', '/'});
-    private List<Character> delimiterEnds =  Arrays.asList(new Character[] {'}', ')', ']', '"', '\'', '\n'});
+    private List<Character> delimiters = List.of(new Character[]     {'{', '(', '[', '"', '\'', '/', '*'});
+    private List<Character> delimiterEnds =  List.of(new Character[] {'}', ')', ']', '"', '\'', '\n','*'});
+    private boolean escapeStarted;
     private boolean insideQuote;
     private boolean insideChar;
     private boolean insideComment;
+    private boolean insideBlockComment;
     
     public JavaValidator(String filePath) throws FileNotFoundException {
         //Validate path exists and can be opened
@@ -34,12 +47,21 @@ public class JavaValidator {
     }
 
     public boolean validateFile() {
-        while((getNextChar()) != 0)
-            continue;
+        while((currentChar = getNextChar()) != 0) {
+            // System.out.println("Current Char: " + currentChar);
+            if(parseChar(currentChar) == 0)
+                break;
+        }
 
+        // System.out.println(delimiterStack);
         if(!isStackClear()) {
             Delimiter d = delimiterStack.peek();
-            System.out.println("Invalid File " + d.character + " is opened on line " + d.lineNumber +" at index " + d.index + " and is never closed.");
+            System.out.println("Invalid File " + d.getDescription() + " " + d.character + " is opened on line " + d.lineNumber +" at index " + d.index + ".");
+            if(currentChar == 0)
+                System.out.println(d.character + " was not closed properly before the file ended.");
+            else
+                System.out.println("The closing delimiter " + currentChar + " was encountered instead of " + delimiterEnds.get(d.delimeterIndex) + " on line " + lineNumber + " at index " + index + ".");
+
             return false;
         } 
 
@@ -65,21 +87,63 @@ public class JavaValidator {
         }
     }
 
-    public char getNextChar() {
+    private char getEscapedCharacter(char c) {
+        switch(c) {
+            case '\'':
+                return '\'';
+            case '"':
+                return '\"';
+            case 'r':
+                return '\r';
+            case '\\':
+                return '\\';
+            case 'n':
+                return '\n';
+            case 'f':
+                return '\f';
+            case 'b':
+                return '\b';
+        }
+
+        return (char)0;
+    }
+
+    private Character getNextChar() {
+        if(hasNext())
+            return next();
+
+        return 0;
+    }
+
+    private char parseChar(Character currentChar) {
         try{
-            currentChar = fileCharacters[index];
+            // currentChar = fileCharacters[index];
+            if(escapeStarted) {
+                escapeStarted = false;
+                // System.out.println("IN ESCAPE : " + currentChar);
+                currentChar = getEscapedCharacter(currentChar);
+                // System.out.println("IN ESCAPE Post : " + currentChar);
+                return currentChar;
+            }
             //Process String Literal \n \r \t etc...
             if((insideChar || insideQuote) && currentChar == '\\') {
-                index += 2;
-                currentChar = fileCharacters[index];
+                // System.out.println(currentChar);
+                escapeStarted = true;
                 return currentChar;
             }
             //Process Comment
-            if(!(insideChar || insideQuote) && currentChar == '/' && fileCharacters[index + 1] == '/') {
-                delimiterStack.push(new Delimiter(currentChar, index, 5, lineNumber));
-                index += 2;
-                currentChar = fileCharacters[index++];
-                insideComment = true;
+            if(!(insideChar || insideQuote || insideComment || insideBlockComment) && currentChar == '/' && hasNext() && (fileCharacters[index] == '/' || fileCharacters[index] == '*')) {
+               
+                // System.out.println("Delimiter Added : " + delimiterStack.peek());
+                if(fileCharacters[index] == '/') {
+                    insideComment = true;
+                    delimiterStack.push(new Delimiter(fileCharacters[index], index - 1, 5, lineNumber));
+                } else if(fileCharacters[index] == '*') {
+                    insideBlockComment = true;
+                    delimiterStack.push(new Delimiter(fileCharacters[index], index - 1, 6, lineNumber));
+                }
+                
+                // currentChar = fileCharacters[index++];
                 return currentChar;
             }
         } catch(Exception e) {
@@ -100,8 +164,9 @@ public class JavaValidator {
         }
         
         // System.out.println(currentChar);
-        // System.out.println(delimiterStack);
-        index ++;
+        // if(!delimiterStack.empty())
+        //     System.out.println(delimiterStack);
+
         return currentChar;
     }
 
@@ -110,7 +175,8 @@ public class JavaValidator {
     }
  
     private boolean isDelimiter() {
-        if(insideQuote || insideComment || insideChar)
+        // System.out.println(currentChar + " Quote: " + insideQuote + " Comment: " + insideComment + " Char: " + insideChar + " Block: " + insideBlockComment);
+        if(insideQuote || insideComment || insideChar || insideBlockComment)
             return false;
 
         for(var d : delimiters) {
@@ -119,8 +185,9 @@ public class JavaValidator {
                     insideQuote = true;
                 else if(currentChar == '\'')
                     insideChar = true;
-
-                return true;
+                
+                if(currentChar != '/' && currentChar != '*')
+                    return true;
             }
         }
 
@@ -128,18 +195,24 @@ public class JavaValidator {
     }
 
     private boolean isDelimiterEnd() {
+        // System.out.println("Delimiter End: " + currentChar + " Quote: " + insideQuote + " Comment: " + insideComment + " Char: " + insideChar + " Block: " + insideBlockComment);
+
         if(insideChar && currentChar != '\'')
             return false;
         if(insideQuote && currentChar != '"')
             return false;
         if(insideComment && currentChar != '\n')
             return false;
+        if(insideBlockComment && currentChar != '*')
+            return false;
 
         for(var d : delimiterEnds) {
             if(currentChar == d) {
                 if(insideComment && currentChar == '\n') {
                     return true;
-                } else if(currentChar != '\n') {
+                } else if(insideBlockComment && currentChar == '*' && hasNext() && fileCharacters[index] == '/') {
+                    return true;
+                } else if(!insideBlockComment && currentChar != '\n') {
                     return true;
                 }
             }
@@ -153,6 +226,8 @@ public class JavaValidator {
             if(currentChar == delimiterEnds.get(delimiterStack.peek().delimeterIndex)) {
                 if(currentChar == '\n' && insideComment)
                     insideComment = false;
+                if(insideBlockComment)
+                    insideBlockComment = false;
                 if(currentChar == '\'')
                     insideChar = false;
                 if(currentChar == '"')
@@ -167,5 +242,21 @@ public class JavaValidator {
 
     public boolean isStackClear() {
         return delimiterStack.empty();
+    }
+
+    @Override
+    public boolean hasNext() {
+        if(index < fileCharacters.length)
+            return true;
+
+        return false;
+    }
+
+    @Override
+    public Character next() {
+        if(index < fileCharacters.length)
+            return fileCharacters[index++];
+
+        return (char)0;
     }
 }
