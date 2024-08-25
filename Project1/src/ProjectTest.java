@@ -1,3 +1,11 @@
+/*
+ * Raymond Rowland
+ * Project 1
+ * 8/25/2024
+ * 
+ * This class serves to test the validation techniques in the JavaValidator
+ */
+
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
@@ -8,6 +16,36 @@ public class ProjectTest {
         try {
             JavaValidator jv = new JavaValidator("/workspaces/CMSC315/Project1/src/Project.java");
             assertEquals(true, jv.fileCharacters.length > 0);
+        } catch(Exception e) {
+            assertEquals(0, 1);
+        }
+    }
+   
+    @Test 
+    public void JVValidProject() {
+        try {
+            JavaValidator jv = new JavaValidator("/workspaces/CMSC315/Project1/src/Project.java");
+            assertEquals(true, jv.validateFile());
+        } catch(Exception e) {
+            assertEquals(0, 1);
+        }
+    }
+    
+    @Test 
+    public void JVValidDelimiter() {
+        try {
+            JavaValidator jv = new JavaValidator("/workspaces/CMSC315/Project1/src/Delimiter.java");
+            assertEquals(true, jv.validateFile());
+        } catch(Exception e) {
+            assertEquals(0, 1);
+        }
+    }
+   
+    @Test 
+    public void JVValidValidator() {
+        try {
+            JavaValidator jv = new JavaValidator("/workspaces/CMSC315/Project1/src/JavaValidator.java");
+            assertEquals(true, jv.validateFile());
         } catch(Exception e) {
             assertEquals(0, 1);
         }
@@ -77,6 +115,16 @@ public class ProjectTest {
     public void JVFailChar() {
         try {
             JavaValidator jv = new JavaValidator("/workspaces/CMSC315/Project1/TestFiles/Test_Fail_Char_Quote.java");
+            assertEquals(false, jv.validateFile());
+        } catch(Exception e) {
+            assertEquals(false, true);
+        }
+    }
+   
+    @Test 
+    public void JVFailBlock() {
+        try {
+            JavaValidator jv = new JavaValidator("/workspaces/CMSC315/Project1/TestFiles/Test_Fail_Block.java");
             assertEquals(false, jv.validateFile());
         } catch(Exception e) {
             assertEquals(false, true);
