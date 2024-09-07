@@ -1,3 +1,16 @@
+/*
+ * Raymond Rowland
+ * Project 2
+ * 9/7/24
+ * 
+ * Point Class
+ * This class represents a point in a 2D space with x and y coordinates. 
+ * It includes functionality for comparing points based on their x values, 
+ * storing and retrieving a visual representation (Circle), 
+ * and determining if the point is located below and to the left of another point. 
+ * The class also has a boolean flag (isMaximal) to indicate if the point is considered maximal.
+ */
+
 package com.project2;
 
 import javafx.scene.shape.Circle;

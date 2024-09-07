@@ -1,3 +1,17 @@
+/*
+ * Raymond Rowland
+ * Project 2
+ * 9/7/24
+ * 
+ * MyPane Class
+ * MyPane extends Pane to provide a custom graphical user interface component that manages and displays a collection of Point objects. 
+ * It is initialized with an array of points and sets up a dark background. 
+ * Users can add new points by clicking with the primary mouse button and 
+ * remove existing points by clicking on their visual representation with the secondary mouse button. 
+ * The pane computes and visualizes maximal points using lines and circles, updating the display whenever points are added or removed. 
+ * It also supports interactive visual feedback by highlighting maximal points.
+ */
+
 package com.project2;
 import java.util.Collections;
 import java.util.LinkedList;

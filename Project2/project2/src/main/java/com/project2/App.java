@@ -1,3 +1,16 @@
+/*
+ * Raymond Rowland
+ * Project 2
+ * 9/7/24
+ * 
+ * App Class
+ * The App class is the entry point for the JavaFX application. 
+ * It initializes the application by loading a set of points from a file and 
+ * creates a Scene containing a MyPane instance populated with these points. 
+ * The start method sets up the primary stage, configures its title, and displays the scene. 
+ * The main method reads point data from a file, parses it into Point objects, and launches the application.
+ */
+
 package com.project2;
 
 import javafx.application.Application;
