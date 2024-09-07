@@ -13,4 +13,4 @@
         - [x] Uses compareTo to sort and then draw lines in maximal set
 - [x] App class
     - [x] Contains the scene and pane
-    - [ ] Reads in initial set of points from points.txt in main
+    - [x] Reads in initial set of points from points.txt in main
