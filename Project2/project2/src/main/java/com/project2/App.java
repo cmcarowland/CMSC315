@@ -7,7 +7,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.input.*;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
@@ -25,7 +24,7 @@ public class App extends Application {
     private static LinkedList<Point> points = new LinkedList<Point>();
 
     @FXML
-    private static Pane pane;
+    private static MyPane pane;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -61,9 +60,9 @@ public class App extends Application {
         scene.setRoot(loadFXML(fxml));
     }
 
-    private static Pane loadFXML(String fxml) throws IOException {
+    private static MyPane loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
-        return fxmlLoader.<Pane>load();
+        return fxmlLoader.<MyPane>load();
     }
 
     public static void main(String[] args) {
