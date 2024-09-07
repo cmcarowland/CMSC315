@@ -1,9 +1,12 @@
 package com.project2;
 
+import javafx.scene.shape.Circle;
+
 public class Point implements Comparable<Point> {
 
     private double x;
     private double y;
+    private Circle dot;
 
     public Point(double _x, double _y) {
         x = _x;
@@ -16,6 +19,14 @@ public class Point implements Comparable<Point> {
 
     public double getY() {
         return y;
+    }
+
+    public void setDot(Circle d) {
+        dot = d;
+    }
+
+    public Circle getDot() {
+        return dot;
     }
 
     public boolean isBelowAndLeft(Point other) {
