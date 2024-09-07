@@ -7,10 +7,13 @@ public class Point implements Comparable<Point> {
     private double x;
     private double y;
     private Circle dot;
+    
+    public boolean isMaximal;
 
     public Point(double _x, double _y) {
         x = _x;
         y = _y;
+        isMaximal = true;
     }
     
     public double getX() {
