@@ -1,0 +1,16 @@
+## Project 2
+- [x] Class of points
+    - [x] Constructor with x and y as parameters
+    - [x] Getters for X and Y
+    - [x] isBelowAndLeft method
+    - [x] compareto on x coordinate
+- [x] MyPane extents Pane
+    - [x] Constructor that supplied an array list of points created the initial set and determines the maximal points and connects them
+    - [x] Private event handler for mouse clicks that adds a point on left click and removes a point on right click
+        - [x] Recomputes maximal after operation
+    - [x] Private method that finds the maximal set and draws lines that connect them
+        - [x] Used Point.isBelowAndLeft method
+        - [x] Uses compareTo to sort and then draw lines in maximal set
+- [x] App class
+    - [x] Contains the scene and pane
+    - [x] Reads in initial set of points from points.txt in main
