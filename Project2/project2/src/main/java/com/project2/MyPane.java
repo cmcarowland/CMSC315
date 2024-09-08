@@ -94,6 +94,7 @@ public class MyPane extends Pane {
             currentPoint = max.get(i);
             if(i == 0) {
                 Line line = new Line(currentPoint.getX(), 500, currentPoint.getX(), currentPoint.getY());
+                line.setStroke(Color.RED);
                 getChildren().add(line);
                 if(i + 1 < max.size() - 1) {
                     
@@ -102,6 +103,7 @@ public class MyPane extends Pane {
             
             if(i == max.size() - 1) {
                 Line line = new Line(0, currentPoint.getY(), currentPoint.getX(), currentPoint.getY());
+                line.setStroke(Color.RED);
                 getChildren().add(line);
                 continue;
             }
@@ -109,8 +111,10 @@ public class MyPane extends Pane {
             if(i < max.size() - 1) {
                 lastPoint = max.get(i + 1);
                 Line line = new Line(currentPoint.getX(), currentPoint.getY(), lastPoint.getX(), currentPoint.getY());
+                line.setStroke(Color.RED);
                 getChildren().add(line);
                 line = new Line(lastPoint.getX(), lastPoint.getY(), lastPoint.getX(), currentPoint.getY());
+                line.setStroke(Color.RED);
                 getChildren().add(line);
             }
         }
