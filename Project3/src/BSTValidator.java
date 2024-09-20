@@ -25,12 +25,15 @@ public class BSTValidator {
         fileCharacters = tree.toCharArray();
         if(fileCharacters[0] != '(')
             throw new BSTException("Missing Left Parenthesis");
+        int parenthesisBalance = countInstancesInString("(") - countInstancesInString(")"); 
         
-        if(countInstancesInString("(") % 2 != 0) 
-            throw new BSTException("Missing Left Parenthesis");
+        if(parenthesisBalance != 0) {
+            if(parenthesisBalance < 0) 
+                throw new BSTException("Missing Left Parenthesis");
+            if(parenthesisBalance > 0) 
+                throw new BSTException("Missing Right Parenthesis");
+        }
         
-        if(countInstancesInString(")") % 2 != 0) 
-            throw new BSTException("Missing Right Parenthesis");
 
         index = 0;
         Integer code = validateString();

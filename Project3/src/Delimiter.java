@@ -15,20 +15,18 @@ public class Delimiter {
     public Character character;
     public int index;
     public int delimeterIndex;
-    public int lineNumber;
 
-    private String[] delimiterDescription = new String[] {"Brace", "Parenthese", "Bracket", "Quote", "Character", "Comment", "Block Comment"};
+    private String[] delimiterDescription = new String[] {"Parenthese"};
 
-    public Delimiter(Character c, int i, int di, int ln) {
+    public Delimiter(Character c, int i, int di) {
         character = c;
         index = i;
         delimeterIndex = di;
-        lineNumber = ln;
     }
 
     @Override
     public String toString() {
-        return "Opened " + delimiterDescription[delimeterIndex] + " " + "Char: '" + character + "' File Index: " + index + " Delimiter Index: " + delimeterIndex + " Line: " + lineNumber;
+        return "Opened " + delimiterDescription[delimeterIndex] + " " + "Char: '" + character + "' File Index: " + index + " Delimiter Index: " + delimeterIndex;
     }
 
     public String getDescription() {
