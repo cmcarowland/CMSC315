@@ -3,18 +3,20 @@
  * Project 3
  * 9/18/2024
  * 
- * 
+ * A Binary Search Tree has at most two children, 
+ * a left child and a right child, 
+ * with the left child containing values less than 
+ * the parent node and the right child containing values greater than the parent node. 
  */
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 public class BST {
 
     private Node head;
     private String treeAsString;
-    char[] fileCharacters;
-    Integer currentIndex;
+    private char[] fileCharacters;
+    private Integer currentIndex;
 
     //Generated a data from the string input
     public BST(String s) throws BSTException {
@@ -76,11 +78,11 @@ public class BST {
             currentIndex = end;
         } 
         if(currentNode != null && hasChildren) {
-            currentNode.left = parseNode();
+            currentNode.setLeft(parseNode());
             if(fileCharacters[currentIndex] == ')')
                 currentIndex ++;
             
-            currentNode.right = parseNode();
+            currentNode.setRight(parseNode());
             if(fileCharacters[currentIndex] == ')')
                 currentIndex ++;
         }
@@ -108,15 +110,18 @@ public class BST {
     private String preorder(Node curNode, int indent) {
         String s = "";
         if(curNode != null) {
-            s += "\t".repeat(indent) + curNode.data + "\n";
-            s += preorder(curNode.left, indent + 1);
-            s += preorder(curNode.right, indent + 1);
+            s += "\t".repeat(indent) + curNode.getData() + "\n";
+            s += preorder(curNode.getLeft(), indent + 1);
+            s += preorder(curNode.getRight(), indent + 1);
         }
         return s;
     }
     
     public boolean isBST () {
-        return false;
+        if(head == null)
+            return false;
+    
+        return head.isNodeBST();
     }
 
     public boolean isBalanced() {
@@ -124,10 +129,20 @@ public class BST {
     }
 
     public int getHeight() {
-        return 0;
+        if(head == null)
+            return 0;
+
+        return getHeight(head);
     }
 
     public ArrayList<Integer> getTreeAsArray() {
         return new ArrayList<>();
+    }
+
+    private int getHeight(Node node) {
+        if(node == null)
+            return -1;
+
+        return 1 + Math.max(getHeight(node.getLeft()), getHeight(node.getRight()));
     }
 }
