@@ -26,7 +26,16 @@ public class Project3 {
             }
 
             System.out.println(bst);
-            System.out.println("It is a balanced binary search tree");
+            System.out.println("Height : " + bst.getHeight());
+            if(bst.isBST()) {
+                if(bst.isBalanced()) {
+                    System.out.println("It is a balanced binary search tree");
+                } else {
+                    System.out.println("It is a binary search tree but it is not balanced");
+                }
+            } else {
+                System.out.println("It is not a binary search tree");
+            }
         } while(GetUserInput("More Trees? Y or N: ").toLowerCase().equals("y"));
     }
 
