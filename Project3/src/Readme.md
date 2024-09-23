@@ -1,0 +1,47 @@
+## Project 3
+- [x] Create a binary search tree class that
+    - [x] Accepts string based preorder representation of a BST
+        - [x] Catorgorize as
+            - [x] Not a BST
+            - [x] Is a BST
+            - [x] Is a BST but is imbalanced
+                - [x] IF imbalanced or non BST
+                    - [x] Create new tree from data and 
+                        - [x] Print
+                        - [x] Print old height
+                        - [x] Print new height
+    - [x] Detect errors in string variation
+        - [x] Incomplete Tree
+        - [x] Data is Not an Integer
+        - [x] Extra Characters at the End
+        - [x] Missing Left Parenthesis
+        - [x] Missing Right Parentheses
+    - [x] Constructor that takes string and constructs BST
+    - [x] Constructor that takes ArrayList of ints and constructs a BST
+    - [x] Method that prints the BST in indented format
+    - [x] Method that returns tree is BST
+    - [x] Method that refutns if BST is balanced
+    - [x] Method that returns height of BST
+    - [x] Method that returns BST as Array
+- [x] Create a CHECKED exception that is thrown when a tree with invalid syntax is input
+- [x] Create a class
+    - [x] Main entry point for the application
+    - [x] Repeatedly accepts user input and displays the results
+- [x] Create Test Cases 
+    - [x] TestComplete
+    - [x] TestIncomplete
+    - [x] TestInvalidData
+    - [x] TestExtra
+    - [x] TestMissingLeft
+    - [x] TestMissingLeftInside
+    - [x] TestMissingRight
+    - [x] TestRightInside
+    - [x] Test1
+    - [x] Test2
+    - [x] Test3
+- [x] Documentation
+    - [x] Word Document
+        - [x] UML
+        - [x] Test Plan with results
+        - [x] Lessons Learned
+    
