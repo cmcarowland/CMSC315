@@ -43,7 +43,7 @@ public class BST {
         list.sort(Comparator.naturalOrder());
 
         treeAsArray = list;
-        head = arrayToTree(0, treeAsArray.size() - 1);)
+        head = arrayToTree(0, treeAsArray.size() - 1);
 
         if(!isBST())
             System.err.println("Tree is invalid!!!");
