@@ -2,10 +2,9 @@
     "java.debug.settings.onBuildFailureProceed": true,
     "java.project.sourcePaths": [
         "Project2/src",
-        "Project2/mvn",
         "Project1/src",
         "Ch24Prj2",
-        "Project2/sample/src/main/java/org/openjfx"
+        "Project3/src"
     ],
     "java.project.referencedLibraries": [
         "/workspaces/CMSC315/lib/hamcrest-core-1.3.jar",
