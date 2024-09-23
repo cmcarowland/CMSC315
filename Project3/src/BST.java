@@ -3,13 +3,15 @@
  * Project 3
  * 9/18/2024
  * 
- * A Binary Search Tree has at most two children, 
- * a left child and a right child, 
- * with the left child containing values less than 
- * the parent node and the right child containing values greater than the parent node. 
+ * The BST class represents a binary search tree, allowing for the creation
+ * of a tree from a string representation or an array of integers. It provides
+ * methods to check if the tree is a valid BST, balanced, and to retrieve its
+ * height and elements as an array. The class also includes tree traversal 
+ * methods and parsing functionality for constructing the tree structure.
  */
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class BST {
 
@@ -17,6 +19,7 @@ public class BST {
     private String treeAsString;
     private char[] fileCharacters;
     private Integer currentIndex;
+    ArrayList<Integer> treeAsArray;
 
     //Generated a data from the string input
     public BST(String s) throws BSTException {
@@ -34,7 +37,71 @@ public class BST {
     
     //Uses the list to build a new properly balanced BST
     public BST(ArrayList<Integer> list) {
+        if(list == null || list.size() == 0)
+            return;
 
+        list.sort(Comparator.naturalOrder());
+
+        treeAsArray = list;
+        head = arrayToTree(0, treeAsArray.size() - 1);)
+
+        if(!isBST())
+            System.err.println("Tree is invalid!!!");
+        
+        if(!isBalanced())
+            System.err.println("Tree is imbalanced");
+    }
+
+    @Override
+    public String toString() {  
+        return preorder(head, 0);
+    }
+    
+    public boolean isBST () {
+        if(head == null)
+            return false;
+    
+        return head.isNodeBST();
+    }
+
+    public boolean isBalanced() {
+        if(head == null) 
+            return false;
+
+        if(head.getLeft() == null && head.getRight() == null)
+            return true;
+
+        
+        return Math.abs(getHeight(head.getLeft()) - getHeight(head.getRight())) < 2;
+    }
+
+    public int getHeight() {
+        if(head == null)
+            return 0;
+
+        return getHeight(head);
+    }
+
+    public ArrayList<Integer> getTreeAsArray() {
+        if(head == null)
+            return new ArrayList<>();
+            
+        return getNodeData(head);
+    }
+
+    private Node arrayToTree(int start, int end) {
+        if (start > end) {
+            return null;
+        }
+
+        int mid = (start + end) / 2;
+        Node node = new Node(treeAsArray.get(mid));
+
+        node.setLeft(arrayToTree(start, mid - 1));
+ 
+        node.setRight(arrayToTree(mid + 1, end));
+
+        return node;
     }
 
     private void parseTree() {
@@ -102,11 +169,6 @@ public class BST {
         return index;
     }
 
-    @Override
-    public String toString() {  
-        return preorder(head, 0);
-    }
-
     private String preorder(Node curNode, int indent) {
         String s = "";
         if(curNode != null) {
@@ -116,27 +178,22 @@ public class BST {
         }
         return s;
     }
-    
-    public boolean isBST () {
-        if(head == null)
-            return false;
-    
-        return head.isNodeBST();
-    }
 
-    public boolean isBalanced() {
-        return false;
-    }
+    private ArrayList<Integer> getNodeData(Node n) {
+        ArrayList<Integer> tree = new ArrayList<>();
+        if(n == null)
+            return tree;
+            
+        tree.add(n.getData());
+        if(n.getLeft() != null) {
+            tree.addAll(getNodeData(n.getLeft()));
+        }
 
-    public int getHeight() {
-        if(head == null)
-            return 0;
+        if(n.getRight() != null) {
+            tree.addAll(getNodeData(n.getRight()));
+        }
 
-        return getHeight(head);
-    }
-
-    public ArrayList<Integer> getTreeAsArray() {
-        return new ArrayList<>();
+        return tree;
     }
 
     private int getHeight(Node node) {
