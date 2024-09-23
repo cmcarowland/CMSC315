@@ -3,7 +3,10 @@
  * Project 3
  * 9/18/2024
  * 
- * 
+ * The Node class represents a single node in a binary search tree (BST).
+ * Each node contains integer data and references to its left and right children.
+ * It includes methods for accessing and modifying node data, checking if the
+ * node maintains BST properties, and a toString method for a readable representation.
  */
 
 public class Node {
@@ -43,11 +46,14 @@ public class Node {
 
     public boolean isNodeBST() {
         if(left != null && right != null)
-            return (left.getData() < data) && (data < right.getData());
+            return (left.getData() < data) && (data < right.getData()) && left.isNodeBST() && right.isNodeBST();
 
         if(right == null && left != null)
-            return left.getData() < data;
+            return left.getData() < data && left.isNodeBST();
+        
+        if(right != null && left == null)
+            return right.getData() > data && right.isNodeBST();
 
-        return left.isNodeBST() && right.isNodeBST();
+        return true;
     }
 }
