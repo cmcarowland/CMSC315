@@ -1,3 +1,26 @@
+/*
+ * Raymond Rowland
+ * Project 3
+ * 9/23/2024
+ * 
+ * MockInOut is a utility class that facilitates testing by allowing 
+ * the redirection of standard input and output streams. It captures 
+ * the output printed to the console and simulates user input during 
+ * tests.
+ * 
+ * Usage:
+ * 1. Create an instance of MockInOut with a string input to simulate 
+ *    user input.
+ * 2. The constructor replaces System.out and System.in with streams 
+ *    that capture output and provide the specified input.
+ * 3. Use getOutput() to retrieve the captured output as a string.
+ * 4. Call close() to restore the original System.in and System.out.
+ * 
+ * Note: The class ensures UTF-8 encoding to maintain compatibility 
+ * with test files and assertions.
+ * 
+ */
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;

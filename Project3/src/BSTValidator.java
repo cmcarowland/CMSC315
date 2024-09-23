@@ -1,8 +1,12 @@
 /*
  * Raymond Rowland
- * Project 1
- * 8/25/2024
+ * Project 3
+ * 9/23/2024
  * 
+ * The BSTValidator class is responsible for validating the string representation
+ * of a binary search tree (BST). It checks for proper syntax, including matching
+ * parentheses and valid integer data. The class throws a BSTException with a
+ * relevant message for any validation errors encountered during the process.
  */
 
 import java.util.Stack;
@@ -12,7 +16,6 @@ public class BSTValidator {
     private char[] fileCharacters;
     private String tree;
     private int index = 0;
-    private int lineNumber = 1;
     private Stack<Delimiter> delimiterStack = new Stack<>();
     private List<Character> delimiters = List.of(new Character[]     {'('});
     private List<Character> delimiterEnds =  List.of(new Character[] {')'});
@@ -58,14 +61,13 @@ public class BSTValidator {
         return tree.length() - tree.replace(s, "").length();
     }
 
-    public Integer validateString() {
+    private Integer validateString() {
         int start = index;
         int childCount = 0;
         delimiterStack.push(new Delimiter(fileCharacters[index], index, delimiters.indexOf(fileCharacters[index])));
         index ++;
 
         for(; index < fileCharacters.length; index++) {
-            // System.out.println("Char : " + fileCharacters[index]);
             if(fileCharacters[index] == ' ') {
                 childCount ++;
                 continue;
@@ -77,14 +79,10 @@ public class BSTValidator {
                     return code;
             } else if(isDelimiterEnd(fileCharacters[index])) {
                 delimiterStack.pop();
-                // System.out.println("Node : " + tree.substring(start, index + 1) + " Children : " + childCount);
-                // if(!isStackClear())
-                //     System.out.println(delimiterStack);
-                
+               
                 if(childCount != 2) // Incomplete node -> incomplete tree
                     return 1;
 
-                // System.out.println(index + " " + fileCharacters.length);
                 if(index < fileCharacters.length - 1 && isStackClear()) // Extra characters after closing brace
                     return 3;
 
@@ -102,10 +100,6 @@ public class BSTValidator {
     private boolean isNumericCharacter(Character c) {
         int charAsInt = (int)c;
         return charAsInt >= 0x30 && charAsInt <= 0x39;
-    }
-
-    public String getLineNumberAndChar() {
-        return "Line : " + lineNumber + " Index : " + index;
     }
  
     private boolean isDelimiter(Character c) {
