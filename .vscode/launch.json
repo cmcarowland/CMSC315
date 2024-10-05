@@ -6,9 +6,30 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Project3",
+            "name": "App",
             "request": "launch",
-            "mainClass": "Project3",
+            "mainClass": "App",
+            "projectName": "CMSC315_da84fafb"
+        },
+        {
+            "type": "java",
+            "name": "App",
+            "request": "launch",
+            "mainClass": "com.project4/com.project4.App",
+            "projectName": "com.project4-project4"
+        },
+        {
+            "type": "java",
+            "name": "project4/App",
+            "request": "launch",
+            "mainClass": "com.project4/App",
+            "projectName": "CMSC315_da84fafb"
+        },
+        {
+            "type": "java",
+            "name": "App",
+            "request": "launch",
+            "mainClass": "com.project4/com.project4.App",
             "projectName": "CMSC315_da84fafb"
         },
         {
