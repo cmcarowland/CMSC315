@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 public class Project4Tests {
     private Graph CreateGraph() {
         Graph g = new Graph();
-        int index = g.AddNode(new Vertex(0, 3));
+        g.AddNode(new Vertex(0, 3));
         g.AddEdge(new Edge(0, 1));
         g.AddEdge(new Edge(0, 2));
 
@@ -56,6 +56,6 @@ public class Project4Tests {
         GraphDFS dfs = new GraphDFS(g, 4, 2);
         dfs.Search();       
         assertEquals(true, dfs.Found());
-        System.out.println(dfs.GetPathToTarget());
+        assertEquals("[4, 1, 0, 2]", dfs.GetPathToTarget().toString());
     }
 }
