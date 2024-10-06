@@ -8,30 +8,39 @@ public class Project4Tests {
     private Graph CreateGraph() {
         Graph g = new Graph();
         g.AddNode(new Vertex(0, 3));
+        g.AddNode(new Vertex(-1, 2));
+        g.AddNode(new Vertex(2, 2));
+        g.AddNode(new Vertex(1, 1));
+        g.AddNode(new Vertex(0, 0));
+        g.AddNode(new Vertex(1, -1));
+        g.AddNode(new Vertex(5, 5));
+
         g.AddEdge(new Edge(0, 1));
         g.AddEdge(new Edge(0, 2));
-
-        g.AddNode(new Vertex(-1, 2));
         g.AddEdge(new Edge(1, 4));
-        g.AddEdge(new Edge(1, 0));
-
-        g.AddNode(new Vertex(2, 2));
-        g.AddEdge(new Edge(2, 0));
         g.AddEdge(new Edge(2, 3));
-
-        g.AddNode(new Vertex(1, 1));
-        g.AddEdge(new Edge(3, 2));
         g.AddEdge(new Edge(3, 4));
         g.AddEdge(new Edge(3, 5));
-
-        g.AddNode(new Vertex(0, 0));
-        g.AddEdge(new Edge(4, 1));
-        g.AddEdge(new Edge(4, 3));
         g.AddEdge(new Edge(4, 5));
+        g.AddEdge(new Edge(4, 6));
 
+        return g;
+    }
+   
+    private Graph CreatePDFGraph() {
+        Graph g = new Graph();
+        g.AddNode(new Vertex(0, 0));
         g.AddNode(new Vertex(1, -1));
-        g.AddEdge(new Edge(5, 4));
-        g.AddEdge(new Edge(5, 3));
+        g.AddNode(new Vertex(-1, -2));
+        g.AddNode(new Vertex(1, -2));
+        g.AddNode(new Vertex(1, 1));
+        g.AddNode(new Vertex(-1, 1));
+
+        g.AddEdge(new Edge(0, 5));
+        g.AddEdge(new Edge(0, 4));
+        g.AddEdge(new Edge(0, 1));
+        g.AddEdge(new Edge(1, 3));
+        g.AddEdge(new Edge(3, 2));
 
         return g;
     }
@@ -54,8 +63,32 @@ public class Project4Tests {
     public void TestSearch() {
         Graph g = CreateGraph();
         GraphDFS dfs = new GraphDFS(g, 4, 2);
-        dfs.Search();       
-        assertEquals(true, dfs.Found());
+        assertEquals(true, dfs.Result());
         assertEquals("[4, 1, 0, 2]", dfs.GetPathToTarget().toString());
+    }
+    
+    @Test
+    public void TestPDFSearch() {
+        Graph g = CreatePDFGraph();
+        GraphDFS dfs = new GraphDFS(g, 5, 2);
+        assertEquals("F - A - B - D - C", dfs.GetNamePath());
+        assertEquals(true, dfs.Result());
+    }
+
+    @Test
+    public void TestBFS() {
+        Graph g = CreateGraph();
+        GraphBFS bfs = new GraphBFS(g, 4, 2);
+        assertEquals(true, bfs.Result());
+        assertEquals("[4, 3, 2]", bfs.GetPathToTarget().toString());
+    }
+
+
+    @Test
+    public void TestPDFBFS() {
+        Graph g = CreatePDFGraph();
+        GraphBFS bfs = new GraphBFS(g, 5, 2);
+        assertEquals(true, bfs.Result());
+        assertEquals("F - A - B - D - C", bfs.GetNamePath());
     }
 }

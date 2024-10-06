@@ -1,5 +1,4 @@
 
-import java.util.Collections;
 import java.util.LinkedList;
 
 public class Graph {
@@ -81,7 +80,8 @@ public class Graph {
     }
 
     public void AddEdge(Edge edge) {
-        edges.get(edge.From()).push((edge));
+        edges.get(edge.From()).push(edge);
+        edges.get(edge.To()).push(new Edge(edge.To(), edge.From()));
     }
 
     public void RemoveEdge(int from, int to) {

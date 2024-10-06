@@ -30,7 +30,7 @@ public class Vertex {
         return index;
     }
 
-    public char IndexAsChar() {
+    public char GetName() {
         if(index == INVALID_VERTEX)
             return 0;
 

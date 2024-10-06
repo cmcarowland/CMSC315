@@ -1,8 +1,8 @@
 import java.util.Arrays;
 import java.util.Stack;
 
-public class GraphDFS extends GraphSearch {
-    public GraphDFS(Graph g, int f, int t) {
+public class GraphConnection extends GraphSearch {
+    public GraphConnection(Graph g, int f, int t) {
         super(g, f, t);
         wasFound = PerformSearch();
     }
@@ -10,7 +10,7 @@ public class GraphDFS extends GraphSearch {
     @Override
     public boolean PerformSearch() {
         Stack<Edge> stack = new Stack<>();
-        Edge dummy = new Edge(from, from);
+        Edge dummy = new Edge(0, 0);
 
         stack.push(dummy);
 
@@ -19,7 +19,7 @@ public class GraphDFS extends GraphSearch {
             route[next.To()] = next.From();
             visited[next.To()] = NodeState_visited;
 
-            if(next.To() == to) {
+            if(Arrays.stream(visited).distinct().count() == 1) {
                 return true;
             }
             
