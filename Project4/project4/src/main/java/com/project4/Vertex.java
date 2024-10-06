@@ -6,11 +6,12 @@ public class Vertex {
     private int x;
     private int y;
     private int index;
+    private String name;
 
     public Vertex(int _x, int _y, int _index) {
         x = _x;
         y = _y;
-        index = _index;
+        SetIndex(_index);
     }
 
     public Vertex(int _x, int _y) {
@@ -31,14 +32,24 @@ public class Vertex {
         return index;
     }
 
-    public char GetName() {
-        if(index == INVALID_VERTEX)
-            return 0;
+    public String GetName() {
+        return name;
+    }
 
-        return (char)(0x41 + index);
+    private String getName() {
+        if(index == INVALID_VERTEX)
+            return "";
+
+        if(index < 26)
+            return "" + (char)(0x41 + index);
+        else {
+            int rem = index % 26;
+            return ("" + (char)(0x41 + rem)).repeat(index / 26 + 1);
+        }
     }
 
     public void SetIndex(int i) {
         index = i;
+        name = getName();
     }
 }
