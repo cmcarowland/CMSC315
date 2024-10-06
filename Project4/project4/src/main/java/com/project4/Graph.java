@@ -28,6 +28,16 @@ public class Graph {
         return null;
     }
 
+    public Vertex GetNodeByName(String s) {
+        for(var n : nodes) {
+            if(n.GetName().equals(s)) {
+                return n;
+            }
+        }
+
+        return null;
+    }
+
     public Edge GetEdge(int from, int to) {
         for(var edge : edges.get(from)) {
             if(edge.To() == to) {
@@ -90,5 +100,27 @@ public class Graph {
         if(e != null) {
             edges.get(from).remove(e);
         }
+    }
+
+    public LinkedList<Vertex> performDFS(int from, int to) {
+        GraphSearch gs = new GraphDFS(this, from, to);
+        gs.PerformSearch();
+        return gs.GetPathToTarget();
+    }
+
+    public LinkedList<Vertex> performBFS(int from, int to) {
+        GraphSearch gs = new GraphBFS(this, from, to);
+        gs.PerformSearch();
+        return gs.GetPathToTarget();
+    }
+
+    public boolean performConnectionCheck() {
+        GraphSearch gs = new GraphConnection(this, 0, 0);
+        return gs.Result();
+    }
+
+    public boolean performCyclicCheck() {
+        GraphSearch gs = new GraphCycle(this, 0, 0);
+        return gs.Result();
     }
 }
