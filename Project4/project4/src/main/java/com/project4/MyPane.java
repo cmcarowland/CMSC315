@@ -46,6 +46,7 @@ public class MyPane extends Pane {
     private void reactToMouseClick(MouseEvent e) {
         if(e.getButton() == MouseButton.PRIMARY) {
             points.add(new Point(e.getX(), e.getY()));
+            App.graph.AddNode(new Vertex((int)e.getX(), (int)e.getY()));
             redraw();
         }
     }
@@ -81,55 +82,54 @@ public class MyPane extends Pane {
     }
 
     private void redraw() {
-        getChildren().clear(); 
-        points.stream().forEach(x -> x.isMaximal = true);
-        computeMaximal();
-        Point currentPoint = null;
-        Point lastPoint = null;
-
-        
-        List<Point> max = points.stream().filter(x->x.isMaximal).collect(Collectors.toList());
-        Collections.sort(max, Collections.reverseOrder());
-        for(int i = 0; i < max.size(); i++) {
-            currentPoint = max.get(i);
-            if(i == 0) {
-                Line line = new Line(currentPoint.getX(), 500, currentPoint.getX(), currentPoint.getY());
-                line.setStroke(Color.RED);
-                getChildren().add(line);
-                if(i + 1 < max.size() - 1) {
-                    
-                }
-            } 
+        for(var c : getChildren()) {
             
-            if(i == max.size() - 1) {
-                Line line = new Line(0, currentPoint.getY(), currentPoint.getX(), currentPoint.getY());
-                line.setStroke(Color.RED);
-                getChildren().add(line);
-                continue;
-            }
-            
-            if(i < max.size() - 1) {
-                lastPoint = max.get(i + 1);
-                Line line = new Line(currentPoint.getX(), currentPoint.getY(), lastPoint.getX(), currentPoint.getY());
-                line.setStroke(Color.RED);
-                getChildren().add(line);
-                line = new Line(lastPoint.getX(), lastPoint.getY(), lastPoint.getX(), currentPoint.getY());
-                line.setStroke(Color.RED);
-                getChildren().add(line);
-            }
         }
-        
-        for(int i = 0; i < points.size(); i++) {
-            lastPoint = currentPoint;
-            currentPoint = points.get(i);
-            Circle dot = new Circle(currentPoint.getX(), currentPoint.getY(), 5, Color.LIGHTBLUE);
-            if(currentPoint.isMaximal) 
-                dot.setFill(Color.YELLOW);
-    
-            dot.setOnMouseReleased(event -> removeClick(event));
+        Vertex currentPoint = null;        
+        // for(int i = 0; i < max.size(); i++) {
+        //     currentPoint = max.get(i);
+        //     if(i == 0) {
+        //         Line line = new Line(currentPoint.getX(), 500, currentPoint.getX(), currentPoint.getY());
+        //         line.setStroke(Color.RED);
+        //         getChildren().add(line);
+        //         if(i + 1 < max.size() - 1) {
+                    
+        //         }
+        //     } 
             
-            currentPoint.setDot(dot);
+        //     if(i == max.size() - 1) {
+        //         Line line = new Line(0, currentPoint.getY(), currentPoint.getX(), currentPoint.getY());
+        //         line.setStroke(Color.RED);
+        //         getChildren().add(line);
+        //         continue;
+        //     }
+            
+        //     if(i < max.size() - 1) {
+        //         lastPoint = max.get(i + 1);
+        //         Line line = new Line(currentPoint.getX(), currentPoint.getY(), lastPoint.getX(), currentPoint.getY());
+        //         line.setStroke(Color.RED);
+        //         getChildren().add(line);
+        //         line = new Line(lastPoint.getX(), lastPoint.getY(), lastPoint.getX(), currentPoint.getY());
+        //         line.setStroke(Color.RED);
+        //         getChildren().add(line);
+        //     }
+        // }
+        
+        for(int i = 0; i < App.graph.nodes.size(); i++) {
+            currentPoint = App.graph.nodes.get(i);
+            Circle dot = new Circle(currentPoint.X(), currentPoint.Y(), 5, Color.LIGHTBLUE);
+            
             getChildren().add(dot);
+        }
+
+        for(int i = 0; i < App.graph.edges.size(); i++) {
+            for(int j = 0; j < App.graph.edges.get(i).size(); j++) {
+                Vertex f = App.graph.GetNode(App.graph.edges.get(i).get(j).From());
+                Vertex t = App.graph.GetNode(App.graph.edges.get(i).get(j).To());
+                Line line = new Line(f.X(), f.Y(), t.X(), t.Y());
+                line.setStroke(Color.RED);
+                getChildren().add(line);                
+            }
         }
     }
 }
