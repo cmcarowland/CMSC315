@@ -2,8 +2,6 @@ package com.project4;
 
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Project4Tests {
     private Graph CreateGraph() {
@@ -82,7 +80,7 @@ public class Project4Tests {
         Graph g = CreateGraph();
         GraphDFS dfs = new GraphDFS(g, 4, 2);
         assertEquals(true, dfs.Result());
-        assertEquals("[4, 1, 0, 2]", dfs.GetPathToTarget().toString());
+        assertEquals("E - B - A - C", dfs.GetNamePath());
     }
     
     @Test
@@ -98,7 +96,7 @@ public class Project4Tests {
         Graph g = CreateGraph();
         GraphBFS bfs = new GraphBFS(g, 4, 2);
         assertEquals(true, bfs.Result());
-        assertEquals("[4, 3, 2]", bfs.GetPathToTarget().toString());
+        assertEquals("E - D - C", bfs.GetNamePath());
     }
 
 
