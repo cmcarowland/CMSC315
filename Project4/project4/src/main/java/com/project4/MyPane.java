@@ -1,22 +1,18 @@
 /*
  * Raymond Rowland
- * Project 2
- * 9/7/24
+ * Project 4
+ * 10/6/24
  * 
- * MyPane Class
- * MyPane extends Pane to provide a custom graphical user interface component that manages and displays a collection of Point objects. 
- * It is initialized with an array of points and sets up a dark background. 
- * Users can add new points by clicking with the primary mouse button and 
- * remove existing points by clicking on their visual representation with the secondary mouse button. 
- * The pane computes and visualizes maximal points using lines and circles, updating the display whenever points are added or removed. 
- * It also supports interactive visual feedback by highlighting maximal points.
+ *
+ * The MyPane class extends Pane to create a custom drawing area for a 
+ * JavaFX application. It sets a dark background and handles mouse click 
+ * events to add vertices to the graph. When a vertex is added, it 
+ * visually represents it as a yellow circle with a label. The class also 
+ * provides a method to draw edges between vertices, represented as white 
+ * lines connecting the corresponding vertex positions in the pane.
  */
 
 package com.project4;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseButton;
@@ -33,6 +29,9 @@ public class MyPane extends Pane {
         BackgroundFill bgf = new BackgroundFill(Color.valueOf("#202020"), null, getInsets());
         Background bg = new Background(bgf);
         setBackground(bg);
+        setLayoutY(50);
+        setPrefWidth(500);
+        setPrefHeight(365);
         setOnMouseClicked(event -> reactToMouseClick(event));
     }
 
@@ -45,6 +44,7 @@ public class MyPane extends Pane {
     }
 
     private void drawNode(Vertex v) {
+        System.out.println(v.X() + " " + v.Y());
         Circle dot = new Circle(v.X(), v.Y(), 5, Color.YELLOW);
         Label label = new Label(v.GetName() + "");
         label.setTextFill(Color.WHITE);

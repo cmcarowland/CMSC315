@@ -3,12 +3,12 @@
  * Project 4
  * 10/6/24
  * 
- * App Class
- * The App class is the entry point for the JavaFX application. 
- * It initializes the application by loading a set of points from a file and 
- * creates a Scene containing a MyPane instance populated with these points. 
- * The start method sets up the primary stage, configures its title, and displays the scene. 
- * The main method reads point data from a file, parses it into Point objects, and launches the application.
+ * The App class extends JavaFX Application to create a GUI for graph 
+ * operations. It initializes UI components like buttons and text fields 
+ * for adding edges, checking connectivity, and performing searches (DFS/BFS). 
+ * The application manages user input, validates vertex names, and displays 
+ * results in a text field. It interacts with a Graph object to execute 
+ * graph-related functionalities.
  */
 
 package com.project4;
@@ -19,8 +19,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.LinkedList;
@@ -39,22 +41,28 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+        Pane p = new Pane();
+        BackgroundFill bgf = new BackgroundFill(Color.valueOf("#101010"), null, p.getInsets());
+        Background bg = new Background(bgf);
+        p.setBackground(bg);
+        
         mp = new MyPane();
-        mp.getChildren().add(createButton("Add Edge", 50, 15, this::AddEdgeClicked));
-        mp.getChildren().add(createButton("Is Connected?", 25, 400, this::OnConnectedClicked));
-        mp.getChildren().add(createButton("Has Cycles?", 125, 400, this::OnCyclicClicked));
-        mp.getChildren().add(createButton("Depth First Search", 220, 400, this::OnDFSClicked));
-        mp.getChildren().add(createButton("Breadth First Search", 350, 400, this::OnBFSClicked));
+        p.getChildren().add(mp);
+        p.getChildren().add(createButton("Add Edge", 50, 15, this::AddEdgeClicked));
+        p.getChildren().add(createButton("Is Connected?", 25, 420, this::OnConnectedClicked));
+        p.getChildren().add(createButton("Has Cycles?", 125, 420, this::OnCyclicClicked));
+        p.getChildren().add(createButton("Depth First Search", 220, 420, this::OnDFSClicked));
+        p.getChildren().add(createButton("Breadth First Search", 350, 420, this::OnBFSClicked));
         output = createTextField(25, 450, 450);
-        mp.getChildren().add(output);
+        p.getChildren().add(output);
         vertex1 = createTextField(200, 15, 50);
-        mp.getChildren().add(vertex1);
+        p.getChildren().add(vertex1);
         vertex2 = createTextField(325,15,50);
-        mp.getChildren().add(vertex2);
-        mp.getChildren().add(createLabel("Vertex 1", 150, 20));
-        mp.getChildren().add(createLabel("Vertex 2", 275, 20));
+        p.getChildren().add(vertex2);
+        p.getChildren().add(createLabel("Vertex 1", 150, 20));
+        p.getChildren().add(createLabel("Vertex 2", 275, 20));
 
-        scene = new Scene(mp, 500, 500);
+        scene = new Scene(p, 500, 500);
         scene.getRoot().setStyle("-fx-font-family: 'serif'");
         stage.setTitle("Raymond Rowland Project 4");
         stage.setScene(scene);
