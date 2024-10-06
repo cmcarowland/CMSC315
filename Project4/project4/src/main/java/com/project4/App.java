@@ -234,4 +234,8 @@ public class App extends Application {
             output.setText("Edge already exists between the two verticies");
         }
     }
+
+    public static void setOutput(String text) {
+        output.setText(text);
+    }
 }

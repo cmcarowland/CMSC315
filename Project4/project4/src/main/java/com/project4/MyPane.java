@@ -40,6 +40,7 @@ public class MyPane extends Pane {
             Vertex v = new Vertex((int)e.getX(), (int)e.getY());
             App.graph.AddNode(v);
             drawNode(v);
+            App.setOutput("Added Node " + v.GetName() + " to graph.");
         }
     }
 
