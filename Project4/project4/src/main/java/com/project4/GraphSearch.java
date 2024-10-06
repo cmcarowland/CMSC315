@@ -1,7 +1,6 @@
 package com.project4;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 
@@ -34,20 +33,20 @@ public class GraphSearch {
 
     public boolean PerformSearch() { return false; }
 
-    public LinkedList<Integer> GetPathToTarget() {
-        LinkedList<Integer> path = new LinkedList<>();
+    public LinkedList<Vertex> GetPathToTarget() {
+        LinkedList<Vertex> path = new LinkedList<>();
         
         if(!wasFound || to < 0)
             return path;
 
         int nd = to;
-        path.add(nd);
+        path.add(graph.GetNode(nd));
         while(nd != from) {
             nd = route[nd];
-            path.add(nd);
+            path.add(graph.GetNode(nd));
         }
 
-        Collections.reverse(path);// path.reversed();
+        Collections.reverse(path);
         return path;
     }
 
@@ -55,7 +54,7 @@ public class GraphSearch {
         var path = GetPathToTarget();
         String result = "";
         for(var node : path) {
-            result += graph.nodes.get(node).GetName() + " - ";
+            result += node.GetName() + " - ";
         }
 
         return result.substring(0, result.length() - 3);
