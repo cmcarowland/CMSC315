@@ -1,3 +1,18 @@
+/*
+ * Raymond Rowland
+ * Project 4
+ * 10/6/24
+ * 
+ * The GraphCycle class implements an algorithm to detect cycles in a 
+ * graph using depth-first search (DFS). It extends the GraphSearch class 
+ * and initializes the search with a graph. The PerformSearch() method 
+ * iterates through each node, recursively checking for cycles. 
+ * The algorithm tracks visited nodes and 
+ * their parents to avoid false positives, 
+ * returning true if a cycle is found and false otherwise.
+ */
+
+
 package com.project4;
 
 import java.util.Arrays;

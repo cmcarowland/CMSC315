@@ -1,3 +1,17 @@
+/*
+ * Raymond Rowland 
+ * Project 4
+ * 10/6/24
+ * 
+ * The Graph class manages a collection of vertices and edges, providing 
+ * methods to add, remove, and retrieve nodes and edges. It supports 
+ * graph operations like Depth First Search (DFS), Breadth First Search 
+ * (BFS), connectivity checks, and cycle detection. The class uses 
+ * LinkedLists to store nodes and edges, allowing dynamic graph 
+ * representation and manipulation.
+ */
+
+
 package com.project4;
 
 import java.util.LinkedList;

@@ -1,3 +1,17 @@
+/*
+ * Raymond Rowland
+ * Project 4
+ * 10/6/24
+ * 
+ * The Edge class represents a directed edge in a graph, defined by 
+ * a starting vertex ('from') and an ending vertex ('to'). It provides 
+ * getter and setter methods for both endpoints, allowing for easy 
+ * manipulation of edge data. The class includes constructors for creating 
+ * edges, with a default constructor initializing the vertices to an 
+ * invalid state.
+ */
+
+
 package com.project4;
 
 public class Edge {

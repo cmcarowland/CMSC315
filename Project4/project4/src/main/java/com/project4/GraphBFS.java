@@ -1,3 +1,17 @@
+/*
+ * Raymond Rowland
+ * Project 4
+ * 10/6/24
+ * 
+ * The GraphBFS class implements the breadth-first search (BFS) algorithm 
+ * for traversing a graph. It extends the GraphSearch class, initializing 
+ * the search with a graph and start/end vertices. The PerformSearch() 
+ * method utilizes a queue to explore nodes level by level, marking 
+ * visited nodes and tracking the route. If the target vertex is found, 
+ * it returns true; otherwise, it returns false.
+ */
+
+
 package com.project4;
 
 import java.util.LinkedList;

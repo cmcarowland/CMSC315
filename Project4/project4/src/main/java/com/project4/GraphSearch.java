@@ -1,3 +1,20 @@
+/*
+ * Raymond Rowland
+ * Project 4
+ * 10/6/24
+ * 
+ * The GraphSearch class serves as a base for implementing various search 
+ * algorithms on a graph. It defines constants for node states (visited, 
+ * unvisited, and no parent assigned) and initializes essential attributes 
+ * such as the graph, visited nodes, and the route between nodes. The 
+ * constructor sets up the search parameters, while the Result() method 
+ * checks if the target was found. The PerformSearch() method is meant 
+ * to be overridden by derived classes. Additionally, the class provides 
+ * methods to retrieve the path to the target node and to format the 
+ * path as a string.
+ */
+
+
 package com.project4;
 
 import java.util.Arrays;
