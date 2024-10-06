@@ -45,6 +45,23 @@ public class Project4Tests {
         return g;
     }
 
+    private Graph CreatePDFGraphDisconnected() {
+        Graph g = new Graph();
+        g.AddNode(new Vertex(0, 0));
+        g.AddNode(new Vertex(1, -1));
+        g.AddNode(new Vertex(-1, -2));
+        g.AddNode(new Vertex(1, -2));
+        g.AddNode(new Vertex(1, 1));
+        g.AddNode(new Vertex(-1, 1));
+
+        g.AddEdge(new Edge(0, 5));
+        g.AddEdge(new Edge(0, 4));
+        g.AddEdge(new Edge(0, 1));
+        g.AddEdge(new Edge(1, 3));
+
+        return g;
+    }
+
     @Test 
     public void TestGraph() {
         Graph g = CreateGraph();
@@ -90,5 +107,38 @@ public class Project4Tests {
         GraphBFS bfs = new GraphBFS(g, 5, 2);
         assertEquals(true, bfs.Result());
         assertEquals("F - A - B - D - C", bfs.GetNamePath());
+    }
+
+    @Test
+    public void TestPDFCycle() {
+        Graph g = CreatePDFGraph();
+        GraphSearch bfs = new GraphCycle(g, 0, 0);
+        assertEquals(false, bfs.Result());
+    }
+    
+    @Test
+    public void TestCycle() {
+        Graph g = CreateGraph();
+        GraphSearch bfs = new GraphCycle(g, 0, 0);
+        assertEquals(true, bfs.Result());
+    }
+
+    @Test
+    public void TestPDFDisconnected() {
+        Graph g = CreatePDFGraphDisconnected();
+        GraphSearch bfs = new GraphConnection(g, 0, 0);
+        assertEquals(false, bfs.Result());
+    }
+    @Test
+    public void TestPDFConnected() {
+        Graph g = CreatePDFGraph();
+        GraphSearch bfs = new GraphConnection(g, 0, 0);
+        assertEquals(true, bfs.Result());
+    }
+    @Test
+    public void TestConnected() {
+        Graph g = CreateGraph();
+        GraphSearch bfs = new GraphConnection(g, 0, 0);
+        assertEquals(true, bfs.Result());
     }
 }

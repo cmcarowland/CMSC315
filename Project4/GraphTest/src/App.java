@@ -9,7 +9,6 @@ public class App {
         g.AddNode(new Vertex(1, -1));
         g.AddNode(new Vertex(5, 5));
 
-
         g.AddEdge(new Edge(0, 1));
         g.AddEdge(new Edge(0, 2));
         g.AddEdge(new Edge(1, 4));
@@ -26,11 +25,12 @@ public class App {
         Graph g = CreateGraph();
         GraphBFS b = new GraphBFS(g, 4, 2);
         GraphDFS d = new GraphDFS(g, 4, 2);
-        GraphDFS c = new GraphDFS(g, 4, 2);
+        GraphSearch c = new GraphConnection(g, 4, 2);
+        GraphSearch cyc = new GraphCycle(g, -1, -1);
 
         System.out.println("BFS " + b.GetNamePath());
         System.out.println("DFS " + d.GetNamePath());
         System.out.println("Connected " + c.Result());
-        System.out.println("Is Cyclic ");
+        System.out.println("Is Cyclic " + cyc.Result());
     }
 }
