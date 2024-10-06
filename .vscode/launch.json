@@ -22,27 +22,6 @@
             "type": "java",
             "name": "App",
             "request": "launch",
-            "mainClass": "com.project4/com.project4.App",
-            "projectName": "com.project4-project4"
-        },
-        {
-            "type": "java",
-            "name": "project4/App",
-            "request": "launch",
-            "mainClass": "com.project4/App",
-            "projectName": "CMSC315_da84fafb"
-        },
-        {
-            "type": "java",
-            "name": "App",
-            "request": "launch",
-            "mainClass": "com.project4/com.project4.App",
-            "projectName": "CMSC315_da84fafb"
-        },
-        {
-            "type": "java",
-            "name": "App",
-            "request": "launch",
             "mainClass": "com.project2/com.project2.App",
             "projectName": "project2"
         }
