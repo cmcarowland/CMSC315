@@ -1,5 +1,7 @@
 package com.project4;
 
+import java.util.Arrays;
+
 public class GraphCycle extends GraphSearch {
 
     public GraphCycle(Graph g, int from, int to) {
@@ -9,7 +11,14 @@ public class GraphCycle extends GraphSearch {
 
     @Override
     public boolean PerformSearch() {
-        return checkCyclic(0, NodeState_no_parent_assigned);
+        for(var n : graph.nodes) {
+            visited = new Integer[graph.nodes.size()];
+            Arrays.fill(visited, NodeState_unvisited);
+            if(checkCyclic(n.Index(), NodeState_no_parent_assigned))
+                return true;
+        }
+
+        return false;
     }
 
     boolean checkCyclic(int node, int parent) {

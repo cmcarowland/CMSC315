@@ -11,6 +11,9 @@ public class GraphConnection extends GraphSearch {
 
     @Override
     public boolean PerformSearch() {
+        if(graph.nodes.size() == 0)
+            return false;
+
         Stack<Edge> stack = new Stack<>();
         Edge dummy = new Edge(0, 0);
 
