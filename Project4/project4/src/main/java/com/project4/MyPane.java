@@ -29,7 +29,7 @@ public class MyPane extends Pane {
         BackgroundFill bgf = new BackgroundFill(Color.valueOf("#202020"), null, getInsets());
         Background bg = new Background(bgf);
         setBackground(bg);
-        setLayoutY(50);
+        setLayoutY(55);
         setPrefWidth(500);
         setPrefHeight(365);
         setOnMouseClicked(event -> reactToMouseClick(event));
@@ -44,7 +44,6 @@ public class MyPane extends Pane {
     }
 
     private void drawNode(Vertex v) {
-        System.out.println(v.X() + " " + v.Y());
         Circle dot = new Circle(v.X(), v.Y(), 5, Color.YELLOW);
         Label label = new Label(v.GetName() + "");
         label.setTextFill(Color.WHITE);

@@ -42,18 +42,18 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         Pane p = new Pane();
-        BackgroundFill bgf = new BackgroundFill(Color.valueOf("#101010"), null, p.getInsets());
+        BackgroundFill bgf = new BackgroundFill(Color.valueOf("#141414"), null, p.getInsets());
         Background bg = new Background(bgf);
         p.setBackground(bg);
         
         mp = new MyPane();
         p.getChildren().add(mp);
         p.getChildren().add(createButton("Add Edge", 50, 15, this::AddEdgeClicked));
-        p.getChildren().add(createButton("Is Connected?", 25, 420, this::OnConnectedClicked));
-        p.getChildren().add(createButton("Has Cycles?", 125, 420, this::OnCyclicClicked));
-        p.getChildren().add(createButton("Depth First Search", 220, 420, this::OnDFSClicked));
-        p.getChildren().add(createButton("Breadth First Search", 350, 420, this::OnBFSClicked));
-        output = createTextField(25, 450, 450);
+        p.getChildren().add(createButton("Is Connected?", 25, 435, this::OnConnectedClicked));
+        p.getChildren().add(createButton("Has Cycles?", 125, 435, this::OnCyclicClicked));
+        p.getChildren().add(createButton("Depth First Search", 220, 435, this::OnDFSClicked));
+        p.getChildren().add(createButton("Breadth First Search", 350, 435, this::OnBFSClicked));
+        output = createTextField(25, 465, 450);
         p.getChildren().add(output);
         vertex1 = createTextField(200, 15, 50);
         p.getChildren().add(vertex1);
