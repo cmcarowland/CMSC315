@@ -6,9 +6,16 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Project3",
+            "name": "App",
             "request": "launch",
-            "mainClass": "Project3",
+            "mainClass": "com.project4/com.project4.App",
+            "projectName": "project4"
+        },
+        {
+            "type": "java",
+            "name": "App",
+            "request": "launch",
+            "mainClass": "App",
             "projectName": "CMSC315_da84fafb"
         },
         {
